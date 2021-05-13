@@ -1,7 +1,12 @@
-# CoWIN Help
-This repo contains code to help book vaccine slot on CoWIN. Currently, this can be used to check for slot availability in realtime.
+#### This repo contains code to help book vaccine slot on CoWIN.
+#### Can be used to:
+### 1. Check for slot availability in realtime
+### 2. Booking appointment using bot
 
-## Realtime Slots
+<br><br>
+
+# Realtime Slot Availability Notification on Telegram Channel
+Use 'CoWIN_slots.py' to get notified about slot availability on your telegram channel.
 
 ### Important info
 - Public API for checking slot availability can send results upto 30 minutes late.
@@ -35,4 +40,25 @@ This repo contains code to help book vaccine slot on CoWIN. Currently, this can 
 7. Set other variables to your preference in '## CoWIN ##' section of code.
 8. Run the script and keep a check on telegram for notifications.
 
-Pro-tip: Find '#$' and set those variables. They will be unique to you.
+<br>
+
+# Vaccination Appointment Booking using Telegram Bot
+Use 'CoWIN_booking.py' to book appointments for vaccination from telegram bot.
+
+### Important info
+- 'CoWIN_slots.py' should be running in LookUpType.TOKEN mode alongside since it uses the same token.
+- Everything is interactive and thus, using the bot will be self explanatory.
+- Use session_id obtained from 'CoWIN_slots.py' on your telegram channel.
+- Set preffered time slot and dose in py file before running.
+- Set beneficiary (for whom the appointment needs to be booked) in creds.json before running.
+
+### Setup help
+1. Get Bot Token using BotFather on telegram. Follow instructions at https://sendpulse.com/knowledge-base/chatbot/create-telegram-chatbot. Set 'booking_bot' field in cred.json with the token obtained.
+2. Set beneficiary_id in 'beneficiary' field in cred.json. (Hint: get beneficiary_id using getBeneficiaryDetails() function in CoWIN_slots.py)
+3. Set time-slot and dose number in CoWIN_booking.py at the top.
+4. Install libraries python-telegram-bot and cairosvg. You might need to install telethon and requests also if you didn't setup 'Realtime Slot Availability'. (Assuming you already did the aformentioned setup)
+
+    ``` pip install python-telegram-bot cairosvg ```
+
+5. Install GTK3+. Follow instructions at https://weasyprint.readthedocs.io/en/stable/install.html. Might require reboot after installation to work.
+6. Run the script and send '/start' on the telegram bot chat to begin.
