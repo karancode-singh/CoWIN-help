@@ -4,5 +4,7 @@
     "username" : "",
     "otp_channel" : "",
     "notify_channel" : "",
-    "mobile" : ""
+    "mobile" : "",
+    "booking_bot" : "",
+    "beneficiary" : ""
 }

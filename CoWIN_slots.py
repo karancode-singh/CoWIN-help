@@ -177,6 +177,8 @@ def get_new_token():
                     token = response['token']
                     print(token)
     headers["Authorization"] = "Bearer "+token
+    with open('temp_token.txt','w') as f:
+        f.write(token)
     return token
 
 def getBeneficiaryDetails():
