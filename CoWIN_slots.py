@@ -60,6 +60,7 @@ max_retry_count = 5
 resend_otp_time = 180
 try_otp_for_time = 150
 otp_length = 6
+chunk_size = 4095
 
 
 url = 'https://selfregistration.cowin.gov.in/'
@@ -77,12 +78,40 @@ def delete_messages_from_channel(channel_name):
     for message in client.get_messages(channel_name,limit=None):
         client.delete_messages(channel_name, message)
 
+past_session_ids = []
+past_capacities = []
+
 def notify_result(result):
     # if(len(result)>5):
     #     delete_messages_from_channel(notify_channel) ## OPTIONAL
     #     print("Old messages deleted from "+notify_channel)
-    print("TELEGRAM MESSAGE: ", result)
-    client.send_message(notify_channel, json.dumps(result,indent=2))
+
+    ### Remove same old messages ###
+    results_to_be_removed = []
+    for each_result in result:
+        try:
+            idx = past_session_ids.index(each_result['session']['session_id'])
+            print(idx)
+            if past_capacities[idx]==each_result['session']['available_capacity']:
+                results_to_be_removed.append(each_result)
+                # print('remove')
+            else:
+                past_capacities[idx]=each_result['session']['available_capacity']
+                # print('update')
+        except:
+            past_session_ids.append(each_result['session']['session_id'])
+            past_capacities.append(each_result['session']['available_capacity'])
+    for i in results_to_be_removed:
+        result.remove(i)
+    ##############################
+    if len(result)<1:
+        print('Result is empty')
+        return
+    message_to_be_sent = json.dumps(result,indent=2)
+    print("TELEGRAM MESSAGE: ", message_to_be_sent)
+    message_chunks = [message_to_be_sent[i:i+chunk_size] for i in range(0, len(message_to_be_sent), chunk_size)]
+    for chunk in message_chunks:
+        client.send_message(notify_channel, chunk)
 
 def getOTPfromTelegram():
     # Get last OTP so that the last OTP is not reused if it was received less than 3 minutes ago.
@@ -269,11 +298,13 @@ sms_date = datetime(2021,1,1)
 while(True):
     if (look_up_type==LookUpType.TOKEN):
         print("GETTING NEW TOKEN")
-        # token = ''
-        # headers["Authorization"] = "Bearer "+token
+        # with open('temp_token.txt','r') as f:
+        #     token = f.readline()
+        #     headers["Authorization"] = "Bearer "+token
+        #     print(token)
         token = get_new_token()
         # delete_messages_from_channel(otp_channel) ## OPTIONAL
-        # getBeneficiaryDetails()
+        getBeneficiaryDetails()
     if(look_up_by==LookUpBy.DISTRICT):
         while(getDataByDistrict()):
             print("Just checked by district. Waiting for ",check_interval," seconds.")

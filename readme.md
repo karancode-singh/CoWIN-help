@@ -20,7 +20,7 @@ Use 'CoWIN_slots.py' to get notified about slot availability on your telegram ch
 - If you don't want to go through the hassle of setting up to get token, you can get results without getting token as well. Just change the corresponding variable. However, the results might not be realtime.
 
 ### Miscellanious info
-- Slots generally get available for a few seconds (for 18+ age-group) i.e. the slots get booked very fast. Therefore, I have NOT implemented any check that prevents multiple notifications from being sent.
+- Slots generally get available for a few seconds (for 18+ age-group) i.e. the slots get booked very fast. Use the companion telegram bot for booking slot quickly.
 - Best way to search is to lookup slots in a particular disctrict for which you will need district_id (info on that later) and then filter by pincodes that are close to you.
 
 #### Getting district_id
