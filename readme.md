@@ -13,7 +13,7 @@ Use 'CoWIN_slots.py' to get notified about slot availability on your telegram ch
 - This script generates a token for using protected APIs that give realtime info about slot availability.
 - This token is good for about 30 minutes after which it expires and needs to be generated again.
 - Since authentication process requires OTP which is sent on SMS, this script picks OTP from a telegram channel where you will need to forward that OTP.
-- For forwarding OTP message from SMS to telegram channel, you can use automation apps like IFTTT on android. You can filter the SMS to check if they contain the word 'CoWIN' so that only the required SMS are forwarded to the telegram channel. (I have not been able to find any automation for iOS.)
+- For forwarding OTP message from SMS to telegram channel, you can use automation apps like IFTTT on android. You can filter the SMS to check if they contain the word 'CoWIN is' so that only the required SMS are forwarded to the telegram channel. (I have not been able to find any automation for iOS.)
 - The available slots are pushed to another telegram channel that you can specify.
 - For using telegram in python (telethon) you will need to get your api_id and api_hash.
 - You can filter the results by setting variables for district_ids, pincodes, center_ids, vaccine, age, date and number of available slots.
@@ -34,7 +34,7 @@ Use 'CoWIN_slots.py' to get notified about slot availability on your telegram ch
 
 2. This script uses chrome drivers for selenium. Download the driver from https://sites.google.com/a/chromium.org/chromedriver/home and place the file in your python installation directory.
 3. I recommend using separate telegram channels for sending OTP and receiving notifications. So create two separate channels on telegram and set the 'otp_channel' and 'notify_channel' with respective channel ids in creds.json.
-4. Setup IFTTT or other automations on your android phone to forward SMS that contain 'CoWIN' to the OTP telegram channel.
+4. Setup IFTTT or other automations on your android phone to forward SMS that contain 'CoWIN is' to the OTP telegram channel.
 5. Get 'api_id' and 'api_hash' for your telegram account. https://core.telegram.org/api/obtaining_api_id should help. Set your telegram 'api_id', 'api_hash' and 'username' in respective fields in creds.json.
 6. Set 'mobile' in creds.json to the mobile number which you will use to authenticate on CoWIN portal.
 7. Set other variables to your preference in '## CoWIN ##' section of code.
